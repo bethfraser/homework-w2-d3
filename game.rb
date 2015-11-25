@@ -6,6 +6,8 @@ class Game
     @pieces = [:o, :x]
     @turn = 0
     @win_checker = win_checker
+    @score_O = 0
+    @score_X = 0
   end
 
   def place_piece(row, column)
@@ -18,6 +20,10 @@ class Game
     @pieces[@turn % 2]
   end
 
+  def not_current_piece
+    @pieces[(@turn + 1) % 2]
+  end
+
   def turn(row, column)
     place_piece(row, column)
     display_board 
@@ -27,6 +33,7 @@ class Game
   def check_for_win
     if @win_checker.has_won?(current_piece, @board)
       puts "#{current_piece} has won!"
+      score_increase(current_piece)
       self.reset
       puts "Board has been reset."
     elsif board_full?
@@ -47,6 +54,18 @@ class Game
     @board = [ [nil, nil, nil],[nil, nil, nil],[nil, nil, nil] ]
     @turn = 0
     @pieces.reverse!
+  end
+
+  def score_increase(symbol)
+    @score_O += 1 if symbol == :o
+    @score_X += 1 if symbol == :x
+  end
+
+  def display_scoresheet
+    score_hash = { "Player X"=>@score_X, "Player O"=>@score_O}
+    score_hash = score_hash.sort.last
+    highest_score = score_hash[0]
+    puts "Scoresheet:\nPlayer X: #{@score_X}\nPlayer O: #{@score_O}\nCurrent Leader: #{highest_score}"
   end
  
   private 

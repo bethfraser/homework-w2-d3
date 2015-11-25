@@ -39,9 +39,8 @@ game.turn(1,1)
 game.turn(1,2)
 game.turn(2,2)
 
-
-
-
+puts "\n"
+game.display_scoresheet
 
 
 #To Do
@@ -53,4 +52,4 @@ game.turn(2,2)
 
 
 
-binding.pry;''
+# binding.pry;''
