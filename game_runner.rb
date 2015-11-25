@@ -1,12 +1,15 @@
 require 'pry-byebug'
 require_relative('game')
+require_relative('win_checker')
 
 # Create game
-game = Game.new()
+
+win_checker_1 = WinChecker.new()
+game = Game.new(win_checker_1)
 
 
 # Place piece
-game.place_piece(0,0)
+game.turn(0,0)
 
 # Display game board
 game.display_board
@@ -16,25 +19,25 @@ game.reset
 puts "Game board has been reset\n"
 
 puts "Testing to see if horizontal line wins:"
-game.place_piece(0,0)
-game.place_piece(1,1)
-game.place_piece(0,1)
-game.place_piece(2,2)
-game.place_piece(0,2)
+game.turn(0,0)
+game.turn(1,1)
+game.turn(0,1)
+game.turn(2,2)
+game.turn(0,2)
 
 puts "Testing to see if vertical line wins:"
-game.place_piece(0,0)
-game.place_piece(1,1)
-game.place_piece(1,0)
-game.place_piece(1,2)
-game.place_piece(2,0)
+game.turn(0,0)
+game.turn(1,1)
+game.turn(1,0)
+game.turn(1,2)
+game.turn(2,0)
 
 puts "Testing to see if diagonal line wins:"
-game.place_piece(0,0)
-game.place_piece(1,0)
-game.place_piece(1,1)
-game.place_piece(1,2)
-game.place_piece(2,2)
+game.turn(0,0)
+game.turn(1,0)
+game.turn(1,1)
+game.turn(1,2)
+game.turn(2,2)
 
 
 
@@ -50,4 +53,4 @@ game.place_piece(2,2)
 
 
 
-# binding.pry;''
+binding.pry;''

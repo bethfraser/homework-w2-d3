@@ -1,30 +1,39 @@
 class Game
+  attr_reader :board, :turn
 
-  attr_reader :board, :turn, :game_number
-
-  def initialize
+  def initialize(win_checker)
     @board = [ [nil, nil, nil],[nil, nil, nil],[nil, nil, nil] ]
     @pieces = [:o, :x]
     @turn = 0
+    @win_checker = win_checker
   end
 
   def place_piece(row, column)
     return puts "Invalid row or column (must be 0, 1 or 2)" if row > 2 || row < 0 || column > 2 || column < 0
     return puts "There's already a piece there!" if @board[row][column]
-    current_piece = @pieces[ @turn % 2 ]
-    @board[row][column] = current_piece
-    
-    display_board
-    if has_won?(current_piece)
+    @board[row][column] = current_piece 
+  end
+
+  def current_piece
+    @pieces[@turn % 2]
+  end
+
+  def turn(row, column)
+    place_piece(row, column)
+    display_board 
+    check_for_win
+  end
+
+  def check_for_win
+    if @win_checker.has_won?(current_piece, @board)
       puts "#{current_piece} has won!"
       self.reset
       puts "Board has been reset."
-      return
-    end
-    @turn += 1
-    if board_full?
-      puts "All spaces are used! The board has now been reset."
+    elsif board_full?
+      puts "All spaces are used - draw! The board has now been reset."
       self.reset
+    else
+      @turn += 1
     end
   end
 
@@ -39,43 +48,8 @@ class Game
     @turn = 0
     @pieces.reverse!
   end
-
-  def has_won?(symbol)
-    horizontal_line?(symbol, @board) || 
-    # vertical_line?(symbol) || 
-    horizontal_line?(symbol, @board.transpose) ||
-    diagonal_line?(symbol)
-  end
-
-  def horizontal_line?(symbol, board)
-    board.any? { |row| row_has_winning_line(row, symbol) }
-  end
-
-  def row_has_winning_line(row, symbol)
-    row.all? { |space| space == symbol } 
-  end
-
-  # def vertical_line?(symbol)
-  #   # new_board = @board.transpose
-  #   horizontal_line?(symbol, @board.transpose)
-  # end
-
-  def diagonal_line?(symbol)
-    # middle_piece = @board[1][1]
-    # return false if middle_piece != symbol
-    # top_left_bottom_right = @board[0][0] == symbol && @board[2][2] == symbol
-    # top_right_bottom_left = @board[0][2] == symbol && @board[2][0] == symbol
-    # top_left_bottom_right || top_right_bottom_left
-
-    diagonal_1 = [@board[0][0], @board[1][1], @board[2][2]]
-    diagonal_2 = [@board[0][2], @board[1][1], @board[2][0]]
-    return true if row_has_winning_line(diagonal_1, symbol) || row_has_winning_line(diagonal_2, symbol)
-  end
-
-
+ 
   private 
-
-
 
   def board_full?
     @board.flatten.all?
@@ -87,5 +61,4 @@ class Game
     end
     row_symbols.join("|")
   end
-
 end
