@@ -15,14 +15,29 @@ game.display_board
 game.reset
 puts "Game board has been reset\n"
 
+puts "Testing to see if horizontal line wins:"
 game.place_piece(0,0)
-game.place_piece(1,0)
-game.place_piece(0,1)
 game.place_piece(1,1)
+game.place_piece(0,1)
+game.place_piece(2,2)
 game.place_piece(0,2)
 
+puts "Testing to see if vertical line wins:"
+game.place_piece(0,0)
+game.place_piece(1,1)
+game.place_piece(1,0)
+game.place_piece(1,2)
+game.place_piece(2,0)
 
-puts game.has_won?(:o)
+puts "Testing to see if diagonal line wins:"
+game.place_piece(0,0)
+game.place_piece(1,0)
+game.place_piece(1,1)
+game.place_piece(1,2)
+game.place_piece(2,2)
+
+
+
 
 
 
@@ -35,4 +50,4 @@ puts game.has_won?(:o)
 
 
 
-binding.pry;''
+# binding.pry;''
