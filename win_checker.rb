@@ -1,14 +1,13 @@
 class WinChecker
 
-
   def has_won?(symbol, board)
-  horizontal_line?(symbol, board) || 
-  # vertical_line?(symbol) || 
-  horizontal_line?(symbol, board.transpose) ||
+  return true if winning_line?(symbol, board) || 
+  winning_line?(symbol, board.transpose) ||
   diagonal_line?(symbol, board)
+  return false
   end
 
-  def horizontal_line?(symbol, board)
+  def winning_line?(symbol, board)
     board.any? { |row| row_has_winning_line(row, symbol) }
   end
 
