@@ -1,10 +1,10 @@
 class Game
-  attr_reader :board, :turn
+  attr_reader :board, :turn_number
 
   def initialize(win_checker)
     @board = [ [nil, nil, nil],[nil, nil, nil],[nil, nil, nil] ]
     @pieces = [:o, :x]
-    @turn = 0
+    @turn_number = 0
     @win_checker = win_checker
     @score_O = 0
     @score_X = 0
@@ -17,11 +17,11 @@ class Game
   end
 
   def current_piece
-    @pieces[@turn % 2]
+    @pieces[@turn_number % 2]
   end
 
   def not_current_piece
-    @pieces[(@turn + 1) % 2]
+    @pieces[(@turn_number + 1) % 2]
   end
 
   def turn(row, column)
@@ -40,7 +40,7 @@ class Game
       puts "All spaces are used - draw! The board has now been reset."
       self.reset
     else
-      @turn += 1
+      @turn_number += 1
     end
   end
 
@@ -52,8 +52,8 @@ class Game
 
   def reset
     @board = [ [nil, nil, nil],[nil, nil, nil],[nil, nil, nil] ]
-    @turn = 0
-    @pieces.reverse!
+    @turn_number = 0
+    # @pieces.reverse!
   end
 
   def score_increase(symbol)
@@ -63,8 +63,8 @@ class Game
 
   def display_scoresheet
     score_hash = { "Player X"=>@score_X, "Player O"=>@score_O}
-    score_hash = score_hash.sort.last
-    highest_score = score_hash[0]
+    score_hash = score_hash.sort
+    highest_score = score_hash[-1]
     puts "Scoresheet:\nPlayer X: #{@score_X}\nPlayer O: #{@score_O}\nCurrent Leader: #{highest_score}"
   end
  

@@ -31,45 +31,74 @@ puts "Hi #{name_2}! You will be playing with the #{game.not_current_piece.upcase
 
 puts "Take your turn by entering the square you want to play in - here is the board for reference:\n1 | 2 | 3\n---------\n4 | 5 | 6\n---------\n7 | 8 | 9"
 
-puts "#{name}, which space do you choose?"
+name_list = [name, name_2]
+current_name = name_list[0]
+
+puts "Would you like to start a new game? (y/n)"
+answer = gets.chomp.downcase
+
+until answer == "n"
+puts "#{current_name}, which space do you choose?"
 turn_1 = gets.chomp.to_i
 game.turn(space_index[turn_1][0], space_index[turn_1][1])
 
-puts "#{name_2}, which space do you choose?"
+name_list.rotate!
+current_name = name_list[0]
+
+until game.turn_number == 0
+puts "#{current_name}, which space do you choose?"
 turn_1 = gets.chomp.to_i
 game.turn(space_index[turn_1][0], space_index[turn_1][1])
 
-puts "#{name}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+name_list.rotate!
+current_name = name_list[0]
+end
 
-puts "#{name_2}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+game.display_scoresheet
 
-puts "#{name}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+puts "Would you like to start a new game? (y/n)"
+answer = gets.chomp.downcase
 
-puts "#{name_2}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+end
 
-puts "#{name}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+puts "Thanks for playing!"
 
-puts "#{name_2}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
 
-puts "#{name}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+# puts "#{current_name}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
 
-puts "#{name_2}, which space do you choose?"
-turn_1 = gets.chomp.to_i
-game.turn(space_index[turn_1][0], space_index[turn_1][1])
+# puts "#{name}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name_2}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name_2}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name_2}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
+
+# puts "#{name_2}, which space do you choose?"
+# turn_1 = gets.chomp.to_i
+# game.turn(space_index[turn_1][0], space_index[turn_1][1])
 
 
 
